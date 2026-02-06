@@ -222,8 +222,6 @@
 
         .stat-box:nth-child(1) { animation-delay: 0.1s; }
         .stat-box:nth-child(2) { animation-delay: 0.2s; }
-        .stat-box:nth-child(3) { animation-delay: 0.3s; }
-        .stat-box:nth-child(4) { animation-delay: 0.4s; }
 
         .stat-box:hover {
             border-color: rgba(0, 255, 157, 0.5);
@@ -531,6 +529,77 @@
         .feature-card p {
             color: #b0b0b0;
             line-height: 1.8;
+        }
+
+        /* Support Section */
+        .support-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .support-intro {
+            text-align: center;
+            color: #b0b0b0;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.9;
+            font-size: 1.1rem;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .support-card {
+            background: rgba(26, 26, 46, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .support-card:hover {
+            border-color: rgba(0, 255, 157, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+        }
+
+        .support-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .support-card h4 {
+            color: #00ff9d;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .support-card p {
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .support-link {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #00ff9d, #00aeff);
+            color: #0d0d0d;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .support-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.4);
         }
 
         /* Comparison */
@@ -854,6 +923,7 @@
             <a href="#" onclick="showApps(); return false;">Applications</a>
             <a href="#fonctionnalites">Fonctionnalités</a>
             <a href="#resultats">Résultats</a>
+            <a href="#support">Support</a>
             <a href="#communaute">Communauté</a>
         </nav>
     </header>
@@ -868,14 +938,6 @@
 
     <section style="padding: 3rem 5%;">
         <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-number">3K+</div>
-                <div class="stat-label">Téléchargements</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">99%</div>
-                <div class="stat-label">Satisfaction</div>
-            </div>
             <div class="stat-box">
                 <div class="stat-number">100%</div>
                 <div class="stat-label">Gratuit</div>
@@ -903,7 +965,6 @@
                     <li>Nettoyage système complet</li>
                     <li>Optimisation GPU & Gaming</li>
                     <li>Boost réseau et RAM</li>
-                    <li>Mode auto-admin intégré</li>
                 </ul>
 
                 <div class="app-stats">
@@ -913,7 +974,7 @@
                     </div>
                     <div class="stat">
                         <span class="stat-label-small">Taille</span>
-                        <span class="stat-value">10 KB</span>
+                        <span class="stat-value">1.89 MB</span>
                     </div>
                     <div class="stat">
                         <span class="stat-label-small">Système</span>
@@ -921,7 +982,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="download-btn" onclick="alert('Lien de téléchargement:\n\nPlacez votre fichier NEXUS_OPTI_v2.0.zip sur GitHub ou un hébergeur et remplacez ce lien!'); return false;">
+                <a href="https://github.com/supersonic1334/nexus-apps/raw/refs/heads/main/NEXUS_OPTI_v2.0.zip" class="download-btn" download>
                    ⬇️ TÉLÉCHARGER GRATUITEMENT
                 </a>
             </div>
@@ -948,7 +1009,7 @@
                     </div>
                     <div class="stat">
                         <span class="stat-label-small">Taille</span>
-                        <span class="stat-value">11 KB</span>
+                        <span class="stat-value">1.90 MB</span>
                     </div>
                     <div class="stat">
                         <span class="stat-label-small">Système</span>
@@ -956,7 +1017,7 @@
                     </div>
                 </div>
 
-                <a href="#" class="download-btn" onclick="alert('Lien de téléchargement:\n\nPlacez votre fichier NEXUS_SHIELD_v2.0.zip sur GitHub ou un hébergeur et remplacez ce lien!'); return false;">
+                <a href="https://github.com/supersonic1334/nexus-apps/raw/refs/heads/main/NEXUS_SHIELD_v2.0.zip" class="download-btn" download>
                    ⬇️ TÉLÉCHARGER GRATUITEMENT
                 </a>
             </div>
@@ -1081,6 +1142,38 @@
         </div>
     </section>
 
+    <section id="support">
+        <h2 class="section-title">SUPPORT & ASSISTANCE</h2>
+        <div class="support-container">
+            <p class="support-intro">
+                Besoin d'aide avec nos applications ? Notre équipe est disponible 24/7 pour répondre à toutes vos questions. Que vous ayez un problème technique, besoin de conseils d'optimisation ou simplement des suggestions, nous sommes là pour vous aider !
+            </p>
+            
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-icon">💬</div>
+                    <h4>Discord</h4>
+                    <p>Rejoignez notre serveur Discord pour un support instantané, des discussions avec la communauté et des mises à jour en temps réel</p>
+                    <a href="https://discord.com/users/supersonic_12" class="support-link" target="_blank">Rejoindre Discord</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">📱</div>
+                    <h4>TikTok</h4>
+                    <p>Suivez-nous sur TikTok pour des tutoriels vidéo, des astuces d'optimisation et les dernières nouveautés de Nexus Apps</p>
+                    <a href="https://www.tiktok.com/@cesarioh12_76" class="support-link" target="_blank">Suivre @cesarioh12_76</a>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">📧</div>
+                    <h4>Contact Direct</h4>
+                    <p>Pour les demandes spécifiques ou les partenariats, contactez-nous directement via nos réseaux sociaux ou Discord</p>
+                    <a href="#communaute" class="support-link">Nous contacter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="communaute">
         <h2 class="section-title">REJOIGNEZ LA COMMUNAUTÉ</h2>
         <div style="text-align: center; color: #b0b0b0; max-width: 800px; margin: 0 auto 3rem; line-height: 1.9; font-size: 1.1rem;">
@@ -1133,7 +1226,7 @@
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Windows 10 ou 11 (64-bit), 2 GB de RAM minimum. Les applications sont très légères (10-11 KB) et fonctionnent sur presque tous les PC.
+                    Windows 10 ou 11 (64-bit), 2 GB de RAM minimum. Les applications sont très légères (environ 2 MB chacune) et fonctionnent sur presque tous les PC.
                 </div>
             </div>
             <div class="faq-item">
