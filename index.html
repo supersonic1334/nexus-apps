@@ -1877,25 +1877,11 @@
                 Besoin d'aide avec nos applications ? Notre équipe passionnée et notre communauté active sont disponibles 24/7 pour répondre à toutes vos questions. Que vous ayez un problème technique, besoin de conseils d'optimisation personnalisés ou simplement des suggestions d'amélioration, nous sommes là pour vous accompagner !
             </p>
             
-            <div class="support-grid">
-                <div class="support-card">
-                    <div class="support-icon">💬</div>
-                    <h4>Discord</h4>
-                    <p>Ajoutez-moi sur Discord pour un support instantané, des discussions passionnantes et des conseils personnalisés d'optimisation. Disponible 24/7 pour vous aider !</p>
-                    <a href="https://discord.com/users/supersonic_12" class="support-link" target="_blank">Ajouter supersonic_12</a>
-                </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">📱</div>
-                    <h4>TikTok</h4>
-                    <p>Suivez-moi sur TikTok pour des tutoriels vidéo détaillés, des astuces d'optimisation secrètes et toutes les dernières nouveautés de Nexus Apps en exclusivité</p>
-                    <a href="https://www.tiktok.com/@cesarioh12?lang=fr" class="support-link" target="_blank">Suivre @cesarioh12</a>
-                </div>
-                
-                <div class="support-card">
+            <div class="support-grid" style="display: flex; justify-content: center;">
+                <div class="support-card" style="max-width: 500px;">
                     <div class="support-icon">📧</div>
                     <h4>Contact Direct</h4>
-                    <p>Pour signaler un bug, faire une suggestion ou demander de l'aide, ouvrez un ticket de support et je vous répondrai rapidement avec une solution personnalisée</p>
+                    <p>Pour signaler un bug, faire une suggestion ou demander de l'aide, ouvrez un ticket de support et je vous répondrai rapidement avec une solution personnalisée par email</p>
                     <a href="#" class="support-link" onclick="openTicketModal(); return false;">Ouvrir un Ticket</a>
                 </div>
             </div>
@@ -2168,19 +2154,83 @@
             document.body.style.overflow = 'auto';
         }
 
-        function submitTicket(event) {
+        async function submitTicket(event) {
             event.preventDefault();
             const name = document.getElementById('ticketName').value;
             const email = document.getElementById('ticketEmail').value;
             const type = document.getElementById('ticketType').value;
             const message = document.getElementById('ticketMessage').value;
 
-            // Simulation d'envoi de ticket
-            alert('🎫 Ticket envoyé avec succès !\n\n✅ Votre ticket a bien été envoyé.\n\n📧 Je vous répondrai à l\'adresse : ' + email + '\n\n⏱️ Vous recevrez une réponse sous 24-48h maximum.\n\n💬 Pour un support plus rapide, n\'hésitez pas à m\'ajouter sur Discord : supersonic_12\n\n🙏 Merci pour votre confiance !');
-            
-            // Reset form and close modal
-            event.target.reset();
-            closeTicketModal();
+            // Déterminer la couleur et l'emoji selon le type
+            const typeInfo = {
+                'bug': { color: 15158332, emoji: '🐛', label: 'Bug Report' },
+                'help': { color: 3447003, emoji: '❓', label: 'Demande d\'Aide' },
+                'suggestion': { color: 15844367, emoji: '💡', label: 'Suggestion' },
+                'other': { color: 9807270, emoji: '📋', label: 'Autre Question' }
+            };
+
+            const info = typeInfo[type] || typeInfo['other'];
+
+            // URL du webhook Discord
+            const webhookURL = 'https://discord.com/api/webhooks/1469716255744327844/M3Bz-ib235LxiDKwSWZvBqr_XqFhlqTBYjqqkVZfbi85Bsli-UrZKjQeYJz5X1s8eZon';
+
+            // Créer le payload pour Discord
+            const discordPayload = {
+                embeds: [{
+                    title: `${info.emoji} Nouveau Ticket - ${info.label}`,
+                    color: info.color,
+                    fields: [
+                        {
+                            name: '👤 Nom/Pseudo',
+                            value: name,
+                            inline: true
+                        },
+                        {
+                            name: '📧 Email',
+                            value: email,
+                            inline: true
+                        },
+                        {
+                            name: '📝 Type',
+                            value: info.label,
+                            inline: false
+                        },
+                        {
+                            name: '💬 Message',
+                            value: message.length > 1024 ? message.substring(0, 1021) + '...' : message,
+                            inline: false
+                        }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: {
+                        text: 'Nexus Apps Support System'
+                    }
+                }]
+            };
+
+            try {
+                // Envoyer au webhook Discord
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(discordPayload)
+                });
+
+                if (response.ok) {
+                    alert('🎫 Ticket envoyé avec succès !\n\n✅ Votre ticket a bien été envoyé.\n\n📧 Je vous répondrai à l\'adresse : ' + email + '\n\n⏱️ Vous recevrez une réponse sous 24-48h maximum.\n\n💬 Pour un support plus rapide, n\'hésitez pas à m\'ajouter sur Discord : supersonic_12\n\n🙏 Merci pour votre confiance !');
+                    
+                    // Reset form and close modal
+                    event.target.reset();
+                    closeTicketModal();
+                } else {
+                    throw new Error('Erreur lors de l\'envoi');
+                }
+            } catch (error) {
+                alert('❌ Erreur lors de l\'envoi du ticket.\n\nVeuillez réessayer ou me contacter directement sur Discord : supersonic_12\n\nOu sur TikTok : @cesarioh12');
+                console.error('Erreur webhook:', error);
+            }
         }
 
         // Close modal when clicking outside
