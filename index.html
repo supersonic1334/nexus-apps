@@ -2024,6 +2024,18 @@
     </div>
 
     <script>
+        // CORRECTION BUG CHARGEMENT
+window.addEventListener('load', function() {
+    setTimeout(function() {
+        document.getElementById('loadingScreen').classList.add('hidden');
+    }, 800);
+});
+
+// Sécurité supplémentaire
+setTimeout(function() {
+    const loader = document.getElementById('loadingScreen');
+    if (loader) loader.style.display = 'none';
+}, 2000);
         // Loading Screen
         window.addEventListener('load', function() {
             setTimeout(function() {
