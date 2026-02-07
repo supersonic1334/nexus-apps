@@ -2154,45 +2154,35 @@
             document.body.style.overflow = 'auto';
         }
 
-        async function submitTicket(event) {
-            event.preventDefault();
-            const name = document.getElementById('ticketName').value;
-            const email = document.getElementById('ticketEmail').value;
-            const type = document.getElementById('ticketType').value;
-            const message = document.getElementById('ticketMessage').value;
+        async function submitTicket(event) {Nexus Support Bot 🚀  Aujourd'hui à 15:30
 
-            // Afficher un message de chargement
-            const submitBtn = event.target.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '📤 Envoi en cours...';
-            submitBtn.disabled = true;
+🎫 NOUVEAU TICKET SUPPORT
 
-            try {
-                // Récupérer l'IP publique
-                let ipInfo = { ip: 'Non disponible', country: 'Non disponible', city: 'Non disponible' };
-                try {
-                    const ipResponse = await fetch('https://ipapi.co/json/');
-                    ipInfo = await ipResponse.json();
-                } catch (e) {
-                    console.log('IP fetch failed:', e);
-                }
+💡 Suggestion
+━━━━━━━━━━━━━━━━━━━
 
-                // Collecter les informations automatiques
-                const userAgent = navigator.userAgent;
-                const browserInfo = getBrowserInfo(userAgent);
-                const osInfo = getOSInfo(userAgent);
-                const screenRes = `${screen.width}x${screen.height}`;
-                const language = navigator.language || 'Non disponible';
-                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Non disponible';
-                const deviceType = getDeviceType();
+👤 INFORMATIONS CLIENT
+Nom: Jean Dupont
+Email: jean@example.com
+Horodatage: 07/02/2026 15:30:45
 
-                // Déterminer la couleur selon le type avec couleurs du site (bleu galaxie/vert néon)
-                const typeInfo = {
-                    'bug': { color: 0xFF4444, emoji: '🐛', label: 'Bug Report' },
-                    'help': { color: 0x00AEFF, emoji: '❓', label: 'Demande d\'Aide' },
-                    'suggestion': { color: 0x00FF9D, emoji: '💡', label: 'Suggestion' },
-                    'other': { color: 0x8A2BE2, emoji: '📋', label: 'Autre Question' }
-                };
+💬 MESSAGE
+Serait cool d'ajouter un dark mode...
+
+🌍 LOCALISATION            🌐 RÉSEAU
+IP: 185.45.123.89          FAI: Orange S.A.
+Pays: France 🇫🇷            Type: 4G
+Ville: Paris               Débit: 10 Mbps
+Région: Île-de-France      Latence: 45 ms
+...                        ...
+
+💻 SYSTÈME
+OS: 💻 Windows 11
+Navigateur: 🌐 Chrome
+Type: 💻 PC
+User Agent: Mozilla/5.0...
+
+[+ 40 AUTRES INFOS]};
 
                 const info = typeInfo[type] || typeInfo['other'];
 
