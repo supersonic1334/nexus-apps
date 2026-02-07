@@ -2154,165 +2154,325 @@
             document.body.style.overflow = 'auto';
         }
 
-        async function submitTicket(event) {Nexus Support Bot 🚀  Aujourd'hui à 15:30
+// ========================================================================
+// CODE WEBHOOK AMÉLIORÉ AVEC 25+ INFORMATIONS AUTOMATIQUES COLLECTÉES
+// ========================================================================
+// Instructions : Remplace la fonction submitTicket() dans ton HTML par ce code !
 
-🎫 NOUVEAU TICKET SUPPORT
+async function submitTicket(event) {
+    event.preventDefault();
+    const name = document.getElementById('ticketName').value;
+    const email = document.getElementById('ticketEmail').value;
+    const type = document.getElementById('ticketType').value;
+    const message = document.getElementById('ticketMessage').value;
 
-💡 Suggestion
-━━━━━━━━━━━━━━━━━━━
+    // Afficher un message de chargement
+    const submitBtn = event.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = '📤 Envoi en cours...';
+    submitBtn.disabled = true;
 
-👤 INFORMATIONS CLIENT
-Nom: Jean Dupont
-Email: jean@example.com
-Horodatage: 07/02/2026 15:30:45
+    try {
+        // ====== COLLECTE DE 25+ INFORMATIONS AUTOMATIQUES ======
+        
+        // 1-7. LOCALISATION & IP AVANCÉE
+        let ipInfo = { ip: 'Non disponible' };
+        try {
+            const ipResponse = await fetch('https://ipapi.co/json/');
+            ipInfo = await ipResponse.json();
+        } catch (e) {
+            console.log('IP fetch failed');
+        }
 
-💬 MESSAGE
-Serait cool d'ajouter un dark mode...
+        // 8-12. SYSTÈME & NAVIGATEUR
+        const userAgent = navigator.userAgent;
+        const browserInfo = getBrowserInfo(userAgent);
+        const osInfo = getOSInfo(userAgent);
+        const platform = navigator.platform || 'Non disponible';
+        const language = navigator.language || 'Non disponible';
+        const languages = navigator.languages ? navigator.languages.join(', ') : language;
 
-🌍 LOCALISATION            🌐 RÉSEAU
-IP: 185.45.123.89          FAI: Orange S.A.
-Pays: France 🇫🇷            Type: 4G
-Ville: Paris               Débit: 10 Mbps
-Région: Île-de-France      Latence: 45 ms
-...                        ...
+        // 13-15. ÉCRAN & AFFICHAGE
+        const screenRes = `${screen.width}x${screen.height}`;
+        const availScreenSize = `${screen.availWidth}x${screen.availHeight}`;
+        const colorDepth = `${screen.colorDepth} bits`;
+        const pixelRatio = window.devicePixelRatio || 1;
+        const orientation = screen.orientation?.type || window.innerWidth > window.innerHeight ? 'Paysage' : 'Portrait';
 
-💻 SYSTÈME
-OS: 💻 Windows 11
-Navigateur: 🌐 Chrome
-Type: 💻 PC
-User Agent: Mozilla/5.0...
+        // 16-17. TIMEZONE & HEURE
+        const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Non disponible';
+        const timestamp = new Date().toLocaleString('fr-FR', { 
+            timeZone: timezone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        const unixTimestamp = Math.floor(Date.now() / 1000);
 
-[+ 40 AUTRES INFOS]};
+        // 18-22. HARDWARE & PERFORMANCES
+        const deviceMemory = navigator.deviceMemory ? `${navigator.deviceMemory} GB RAM` : 'Non disponible';
+        const hardwareConcurrency = navigator.hardwareConcurrency ? `${navigator.hardwareConcurrency} cœurs CPU` : 'Non disponible';
+        const deviceType = getDeviceType();
+        const touchSupport = 'ontouchstart' in window ? `Oui (${navigator.maxTouchPoints || 0} points)` : 'Non';
+        
+        // Informations de performance
+        const perf = window.performance;
+        const loadTime = perf?.timing ? 
+            `${((perf.timing.loadEventEnd - perf.timing.navigationStart) / 1000).toFixed(2)}s` : 
+            'N/A';
+        const memoryUsage = perf.memory ? 
+            `${(perf.memory.usedJSHeapSize / 1048576).toFixed(0)}MB / ${(perf.memory.jsHeapSizeLimit / 1048576).toFixed(0)}MB` : 
+            'N/A';
 
-                const info = typeInfo[type] || typeInfo['other'];
+        // 23-27. RÉSEAU & CONNEXION
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const connectionType = connection?.effectiveType || 'Non disponible';
+        const downlink = connection?.downlink ? `${connection.downlink} Mbps` : 'N/A';
+        const rtt = connection?.rtt ? `${connection.rtt} ms` : 'N/A';
+        const saveData = connection?.saveData ? '✅ Activé' : '❌ Désactivé';
+        const onlineStatus = navigator.onLine ? '🟢 En ligne' : '🔴 Hors ligne';
 
-                // URL du webhook Discord
-                const webhookURL = 'https://discord.com/api/webhooks/1469716255744327844/M3Bz-ib235LxiDKwSWZvBqr_XqFhlqTBYjqqkVZfbi85Bsli-UrZKjQeYJz5X1s8eZon';
+        // 28-32. NAVIGATEUR & SÉCURITÉ
+        const cookiesEnabled = navigator.cookieEnabled ? '✅ Activés' : '❌ Désactivés';
+        const doNotTrack = navigator.doNotTrack === '1' ? '✅ Activé' : '❌ Désactivé';
+        const javaEnabled = typeof navigator.javaEnabled === 'function' ? 
+            (navigator.javaEnabled() ? '✅ Activé' : '❌ Désactivé') : 'N/A';
+        const pdfViewerEnabled = navigator.pdfViewerEnabled ? '✅ Oui' : '❌ Non';
+        const vendor = navigator.vendor || 'Non disponible';
 
-                // Créer le payload pour Discord avec design amélioré
-                const discordPayload = {
-                    username: 'Nexus Support Bot',
-                    avatar_url: 'https://i.imgur.com/4M34hi2.png',
-                    embeds: [
-                        {
-                            author: {
-                                name: '🎫 NOUVEAU TICKET REÇU',
-                                icon_url: 'https://i.imgur.com/4M34hi2.png'
-                            },
-                            title: `${info.emoji} ${info.label}`,
-                            color: info.color,
-                            description: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                            fields: [
-                                {
-                                    name: '👤 Informations du Client',
-                                    value: `**Nom/Pseudo:** ${name}\n**Email:** \`${email}\`\n**Type de demande:** ${info.label}`,
-                                    inline: false
-                                },
-                                {
-                                    name: '💬 Message',
-                                    value: message.length > 1024 ? message.substring(0, 1000) + '...' : message,
-                                    inline: false
-                                },
-                                {
-                                    name: '\u200B',
-                                    value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
-                                    inline: false
-                                },
-                                {
-                                    name: '🌐 Informations Techniques Automatiques',
-                                    value: '** **',
-                                    inline: false
-                                },
-                                {
-                                    name: '🌍 Localisation',
-                                    value: `**IP Publique:** \`${ipInfo.ip}\`\n**Pays:** ${ipInfo.country_name || 'N/A'} ${ipInfo.country_emoji || ''}\n**Ville:** ${ipInfo.city || 'N/A'}\n**Région:** ${ipInfo.region || 'N/A'}`,
-                                    inline: true
-                                },
-                                {
-                                    name: '💻 Système',
-                                    value: `**OS:** ${osInfo}\n**Navigateur:** ${browserInfo}\n**Type:** ${deviceType}\n**Langue:** ${language}`,
-                                    inline: true
-                                },
-                                {
-                                    name: '🖥️ Écran & Réseau',
-                                    value: `**Résolution:** ${screenRes}\n**Timezone:** ${timezone}\n**Connexion:** ${navigator.connection?.effectiveType || 'N/A'}\n**FAI:** ${ipInfo.org || 'N/A'}`,
-                                    inline: true
-                                }
-                            ],
-                            thumbnail: {
-                                url: 'https://i.imgur.com/4M34hi2.png'
-                            },
-                            footer: {
-                                text: 'Nexus Apps Support System • Répondre par email à l\'adresse indiquée',
-                                icon_url: 'https://i.imgur.com/4M34hi2.png'
-                            },
-                            timestamp: new Date().toISOString()
-                        }
-                    ]
-                };
+        // 33-35. SESSION & NAVIGATION
+        const referrer = document.referrer || '🔗 Accès direct';
+        const currentURL = window.location.href;
+        const timeOnPage = getTimeOnPage();
+        const pageTitle = document.title;
 
-                // Envoyer au webhook Discord
-                const response = await fetch(webhookURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
+        // 36-40. BATTERIE & APPAREIL (si disponible)
+        let batteryLevel = 'N/A';
+        let batteryCharging = 'N/A';
+        let batteryTime = 'N/A';
+        if (navigator.getBattery) {
+            try {
+                const battery = await navigator.getBattery();
+                batteryLevel = `${Math.round(battery.level * 100)}%`;
+                batteryCharging = battery.charging ? '⚡ En charge' : '🔋 Sur batterie';
+                batteryTime = battery.charging && battery.chargingTime !== Infinity ? 
+                    `${Math.round(battery.chargingTime / 60)} min` : 
+                    battery.dischargingTime !== Infinity ? 
+                        `${Math.round(battery.dischargingTime / 60)} min restantes` : 
+                        'N/A';
+            } catch (e) {}
+        }
+
+        // 41-43. CAPACITÉS GRAPHIQUES
+        const webglSupport = getWebGLSupport();
+        const webglRenderer = getWebGLRenderer();
+        const canvasSupport = !!document.createElement('canvas').getContext;
+
+        // 44-45. PLUGINS & EXTENSIONS (limité par sécurité moderne)
+        const pluginsCount = navigator.plugins ? navigator.plugins.length : 0;
+        const mimeTypesCount = navigator.mimeTypes ? navigator.mimeTypes.length : 0;
+
+        // Déterminer la couleur selon le type
+        const typeInfo = {
+            'bug': { color: 0xFF4444, emoji: '🐛', label: 'Bug Report' },
+            'help': { color: 0x00AEFF, emoji: '❓', label: 'Demande d\'Aide' },
+            'suggestion': { color: 0x00FF9D, emoji: '💡', label: 'Suggestion' },
+            'other': { color: 0x8A2BE2, emoji: '📋', label: 'Autre Question' }
+        };
+
+        const info = typeInfo[type] || typeInfo['other'];
+
+        // URL du webhook Discord
+        const webhookURL = 'https://discord.com/api/webhooks/1469716255744327844/M3Bz-ib235LxiDKwSWZvBqr_XqFhlqTBYjqqkVZfbi85Bsli-UrZKjQeYJz5X1s8eZon';
+
+        // Créer le payload pour Discord avec TOUTES les informations
+        const discordPayload = {
+            username: 'Nexus Support Bot 🚀',
+            avatar_url: 'https://i.imgur.com/4M34hi2.png',
+            embeds: [
+                {
+                    author: {
+                        name: '🎫 NOUVEAU TICKET SUPPORT',
+                        icon_url: 'https://i.imgur.com/4M34hi2.png'
                     },
-                    body: JSON.stringify(discordPayload)
-                });
-
-                if (response.ok) {
-                    alert('🎫 Ticket envoyé avec succès !\n\n✅ Votre ticket a bien été envoyé.\n\n📧 Je vous répondrai à l\'adresse : ' + email + '\n\n⏱️ Vous recevrez une réponse sous 24-48h maximum.\n\n💬 Pour un support plus rapide, n\'hésitez pas à m\'ajouter sur Discord : supersonic_12\n\n🙏 Merci pour votre confiance !');
-                    
-                    // Reset form and close modal
-                    event.target.reset();
-                    closeTicketModal();
-                } else {
-                    throw new Error('Erreur lors de l\'envoi');
+                    title: `${info.emoji} ${info.label}`,
+                    color: info.color,
+                    fields: [
+                        {
+                            name: '👤 INFORMATIONS CLIENT',
+                            value: `**Nom:** ${name}\n**Email:** \`${email}\`\n**Horodatage:** ${timestamp}\n**Unix:** ${unixTimestamp}`,
+                            inline: false
+                        },
+                        {
+                            name: '💬 MESSAGE',
+                            value: message.length > 1000 ? message.substring(0, 997) + '...' : message,
+                            inline: false
+                        },
+                        {
+                            name: '🌍 LOCALISATION',
+                            value: `**IP:** \`${ipInfo.ip}\`\n**Pays:** ${ipInfo.country_name || 'N/A'} ${ipInfo.country_emoji || ''}\n**Ville:** ${ipInfo.city || 'N/A'}\n**Région:** ${ipInfo.region || 'N/A'}\n**Code postal:** ${ipInfo.postal || 'N/A'}\n**Coordonnées:** ${ipInfo.latitude || 'N/A'}, ${ipInfo.longitude || 'N/A'}`,
+                            inline: true
+                        },
+                        {
+                            name: '🌐 RÉSEAU',
+                            value: `**FAI:** ${ipInfo.org || 'N/A'}\n**Type:** ${connectionType}\n**Débit:** ${downlink}\n**Latence:** ${rtt}\n**Économie données:** ${saveData}\n**Statut:** ${onlineStatus}`,
+                            inline: true
+                        },
+                        {
+                            name: '💻 SYSTÈME',
+                            value: `**OS:** ${osInfo}\n**Plateforme:** ${platform}\n**Navigateur:** ${browserInfo}\n**Vendor:** ${vendor}\n**Type:** ${deviceType}\n**User Agent:** \`${userAgent.substring(0, 100)}...\``,
+                            inline: false
+                        },
+                        {
+                            name: '🖥️ AFFICHAGE',
+                            value: `**Résolution:** ${screenRes}\n**Disponible:** ${availScreenSize}\n**Profondeur:** ${colorDepth}\n**Pixel Ratio:** ${pixelRatio}\n**Orientation:** ${orientation}\n**Touch:** ${touchSupport}`,
+                            inline: true
+                        },
+                        {
+                            name: '⚙️ HARDWARE',
+                            value: `**RAM:** ${deviceMemory}\n**CPU:** ${hardwareConcurrency}\n**WebGL:** ${webglSupport}\n**Rendu GPU:** ${webglRenderer}\n**Canvas:** ${canvasSupport ? '✅' : '❌'}`,
+                            inline: true
+                        },
+                        {
+                            name: '🔋 BATTERIE',
+                            value: `**Niveau:** ${batteryLevel}\n**État:** ${batteryCharging}\n**Temps:** ${batteryTime}`,
+                            inline: true
+                        },
+                        {
+                            name: '⚡ PERFORMANCES',
+                            value: `**Temps chargement:** ${loadTime}\n**Mémoire JS:** ${memoryUsage}\n**Temps sur page:** ${timeOnPage}`,
+                            inline: true
+                        },
+                        {
+                            name: '🌐 LANGUE & RÉGION',
+                            value: `**Langue:** ${language}\n**Langues:** ${languages}\n**Timezone:** ${timezone}`,
+                            inline: true
+                        },
+                        {
+                            name: '🔒 SÉCURITÉ & CONFIDENTIALITÉ',
+                            value: `**Cookies:** ${cookiesEnabled}\n**Do Not Track:** ${doNotTrack}\n**Java:** ${javaEnabled}\n**PDF Viewer:** ${pdfViewerEnabled}\n**Plugins:** ${pluginsCount}\n**MIME Types:** ${mimeTypesCount}`,
+                            inline: true
+                        },
+                        {
+                            name: '📄 SESSION',
+                            value: `**Page actuelle:** ${currentURL}\n**Référent:** ${referrer}\n**Titre page:** ${pageTitle}`,
+                            inline: false
+                        }
+                    ],
+                    thumbnail: {
+                        url: 'https://i.imgur.com/4M34hi2.png'
+                    },
+                    footer: {
+                        text: `Nexus Support System • ${new Date().getFullYear()}`,
+                        icon_url: 'https://i.imgur.com/4M34hi2.png'
+                    },
+                    timestamp: new Date().toISOString()
                 }
-            } catch (error) {
-                alert('❌ Erreur lors de l\'envoi du ticket.\n\nVeuillez réessayer ou me contacter directement sur Discord : supersonic_12\n\nOu sur TikTok : @cesarioh12');
-                console.error('Erreur webhook:', error);
-                submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
-            }
-        }
+            ]
+        };
 
-        // Fonction pour détecter le navigateur
-        function getBrowserInfo(ua) {
-            if (ua.includes('Firefox')) return 'Firefox 🦊';
-            if (ua.includes('SamsungBrowser')) return 'Samsung Internet 📱';
-            if (ua.includes('Opera') || ua.includes('OPR')) return 'Opera 🎭';
-            if (ua.includes('Trident')) return 'Internet Explorer 💀';
-            if (ua.includes('Edge')) return 'Edge 🌊';
-            if (ua.includes('Chrome')) return 'Chrome 🌐';
-            if (ua.includes('Safari')) return 'Safari 🧭';
-            return 'Autre navigateur';
-        }
+        // Envoyer au webhook Discord
+        const response = await fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(discordPayload)
+        });
 
-        // Fonction pour détecter l'OS
-        function getOSInfo(ua) {
-            if (ua.includes('Windows NT 10.0')) return 'Windows 10/11 💻';
-            if (ua.includes('Windows NT 6.3')) return 'Windows 8.1 💻';
-            if (ua.includes('Windows NT 6.2')) return 'Windows 8 💻';
-            if (ua.includes('Windows NT 6.1')) return 'Windows 7 💻';
-            if (ua.includes('Mac OS X')) return 'macOS 🍎';
-            if (ua.includes('Android')) return 'Android 📱';
-            if (ua.includes('Linux')) return 'Linux 🐧';
-            if (ua.includes('iPhone') || ua.includes('iPad')) return 'iOS 📱';
-            return 'Système inconnu';
+        if (response.ok) {
+            alert('🎫 Ticket envoyé avec succès !\n\n✅ Votre ticket a bien été envoyé.\n\n📧 Réponse à : ' + email + '\n\n⏱️ Délai : 24-48h max\n\n💬 Support rapide : Discord supersonic_12\n\n🙏 Merci !');
+            event.target.reset();
+            closeTicketModal();
+        } else {
+            throw new Error('Erreur lors de l\'envoi');
         }
+    } catch (error) {
+        alert('❌ Erreur d\'envoi.\n\nContacter Discord : supersonic_12\nOu TikTok : @cesarioh12');
+        console.error('Erreur webhook:', error);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
+}
 
-        // Fonction pour détecter le type d'appareil
-        function getDeviceType() {
-            const ua = navigator.userAgent;
-            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-                return 'Tablette 📱';
-            }
-            if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
-                return 'Mobile 📱';
-            }
-            return 'Ordinateur 💻';
-        }
+// ====== FONCTIONS UTILITAIRES ======
+
+function getBrowserInfo(ua) {
+    if (ua.includes('Firefox')) return '🦊 Firefox';
+    if (ua.includes('SamsungBrowser')) return '📱 Samsung Internet';
+    if (ua.includes('Opera') || ua.includes('OPR')) return '🎭 Opera';
+    if (ua.includes('Edg')) return '🌊 Edge';
+    if (ua.includes('Chrome')) return '🌐 Chrome';
+    if (ua.includes('Safari')) return '🧭 Safari';
+    if (ua.includes('Trident')) return '💀 IE';
+    return '❓ Autre';
+}
+
+function getOSInfo(ua) {
+    if (ua.includes('Windows NT 10.0')) return '💻 Windows 10/11';
+    if (ua.includes('Windows NT 6.3')) return '💻 Windows 8.1';
+    if (ua.includes('Windows NT 6.2')) return '💻 Windows 8';
+    if (ua.includes('Windows NT 6.1')) return '💻 Windows 7';
+    if (ua.includes('Mac OS X')) {
+        const version = ua.match(/Mac OS X (\d+[._]\d+)/);
+        return version ? `🍎 macOS ${version[1].replace('_', '.')}` : '🍎 macOS';
+    }
+    if (ua.includes('Android')) {
+        const version = ua.match(/Android (\d+)/);
+        return version ? `📱 Android ${version[1]}` : '📱 Android';
+    }
+    if (ua.includes('iPhone') || ua.includes('iPad')) {
+        const version = ua.match(/OS (\d+_\d+)/);
+        return version ? `📱 iOS ${version[1].replace('_', '.')}` : '📱 iOS';
+    }
+    if (ua.includes('Linux')) return '🐧 Linux';
+    return '❓ Inconnu';
+}
+
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) return '📱 Tablette';
+    if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) return '📱 Mobile';
+    return '💻 PC';
+}
+
+function getTimeOnPage() {
+    if (window.performance && window.performance.timing) {
+        const seconds = Math.floor((Date.now() - window.performance.timing.navigationStart) / 1000);
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return mins > 0 ? `${mins}min ${secs}s` : `${secs}s`;
+    }
+    return 'N/A';
+}
+
+function getWebGLSupport() {
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        return gl ? '✅ WebGL supporté' : '❌ Non supporté';
+    } catch (e) {
+        return '❌ Non supporté';
+    }
+}
+
+function getWebGLRenderer() {
+    try {
+        const canvas = document.createElement('canvas');
+        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return 'N/A';
+        const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+        if (!debugInfo) return 'N/A';
+        const renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+        return renderer || 'N/A';
+    } catch (e) {
+        return 'N/A';
+    }
+}
 
         // Close modal when clicking outside
         window.onclick = function(event) {
