@@ -1709,7 +1709,7 @@
                     </div>
                 </div>
 
-                <a href="https://github.com/supersonic1334/nexus-apps/raw/refs/heads/main/PC_Optimizer_ULTRA_V5_ULTIMATE.zip" class="download-btn" download>
+                <a href="https://github.com/supersonic1334/nexus-apps/raw/refs/heads/main/PC_Optimizer_ULTRA_V5_ULTIMATE%20-%20Copie.zip" class="download-btn" download>
                    ⬇️ TÉLÉCHARGER GRATUITEMENT
                 </a>
             </div>
@@ -2161,54 +2161,106 @@
             const type = document.getElementById('ticketType').value;
             const message = document.getElementById('ticketMessage').value;
 
-            // Déterminer la couleur et l'emoji selon le type
-            const typeInfo = {
-                'bug': { color: 15158332, emoji: '🐛', label: 'Bug Report' },
-                'help': { color: 3447003, emoji: '❓', label: 'Demande d\'Aide' },
-                'suggestion': { color: 15844367, emoji: '💡', label: 'Suggestion' },
-                'other': { color: 9807270, emoji: '📋', label: 'Autre Question' }
-            };
-
-            const info = typeInfo[type] || typeInfo['other'];
-
-            // URL du webhook Discord
-            const webhookURL = 'https://discord.com/api/webhooks/1469716255744327844/M3Bz-ib235LxiDKwSWZvBqr_XqFhlqTBYjqqkVZfbi85Bsli-UrZKjQeYJz5X1s8eZon';
-
-            // Créer le payload pour Discord
-            const discordPayload = {
-                embeds: [{
-                    title: `${info.emoji} Nouveau Ticket - ${info.label}`,
-                    color: info.color,
-                    fields: [
-                        {
-                            name: '👤 Nom/Pseudo',
-                            value: name,
-                            inline: true
-                        },
-                        {
-                            name: '📧 Email',
-                            value: email,
-                            inline: true
-                        },
-                        {
-                            name: '📝 Type',
-                            value: info.label,
-                            inline: false
-                        },
-                        {
-                            name: '💬 Message',
-                            value: message.length > 1024 ? message.substring(0, 1021) + '...' : message,
-                            inline: false
-                        }
-                    ],
-                    timestamp: new Date().toISOString(),
-                    footer: {
-                        text: 'Nexus Apps Support System'
-                    }
-                }]
-            };
+            // Afficher un message de chargement
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '📤 Envoi en cours...';
+            submitBtn.disabled = true;
 
             try {
+                // Récupérer l'IP publique
+                let ipInfo = { ip: 'Non disponible', country: 'Non disponible', city: 'Non disponible' };
+                try {
+                    const ipResponse = await fetch('https://ipapi.co/json/');
+                    ipInfo = await ipResponse.json();
+                } catch (e) {
+                    console.log('IP fetch failed:', e);
+                }
+
+                // Collecter les informations automatiques
+                const userAgent = navigator.userAgent;
+                const browserInfo = getBrowserInfo(userAgent);
+                const osInfo = getOSInfo(userAgent);
+                const screenRes = `${screen.width}x${screen.height}`;
+                const language = navigator.language || 'Non disponible';
+                const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Non disponible';
+                const deviceType = getDeviceType();
+
+                // Déterminer la couleur selon le type avec couleurs du site (bleu galaxie/vert néon)
+                const typeInfo = {
+                    'bug': { color: 0xFF4444, emoji: '🐛', label: 'Bug Report' },
+                    'help': { color: 0x00AEFF, emoji: '❓', label: 'Demande d\'Aide' },
+                    'suggestion': { color: 0x00FF9D, emoji: '💡', label: 'Suggestion' },
+                    'other': { color: 0x8A2BE2, emoji: '📋', label: 'Autre Question' }
+                };
+
+                const info = typeInfo[type] || typeInfo['other'];
+
+                // URL du webhook Discord
+                const webhookURL = 'https://discord.com/api/webhooks/1469716255744327844/M3Bz-ib235LxiDKwSWZvBqr_XqFhlqTBYjqqkVZfbi85Bsli-UrZKjQeYJz5X1s8eZon';
+
+                // Créer le payload pour Discord avec design amélioré
+                const discordPayload = {
+                    username: 'Nexus Support Bot',
+                    avatar_url: 'https://i.imgur.com/4M34hi2.png',
+                    embeds: [
+                        {
+                            author: {
+                                name: '🎫 NOUVEAU TICKET REÇU',
+                                icon_url: 'https://i.imgur.com/4M34hi2.png'
+                            },
+                            title: `${info.emoji} ${info.label}`,
+                            color: info.color,
+                            description: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                            fields: [
+                                {
+                                    name: '👤 Informations du Client',
+                                    value: `**Nom/Pseudo:** ${name}\n**Email:** \`${email}\`\n**Type de demande:** ${info.label}`,
+                                    inline: false
+                                },
+                                {
+                                    name: '💬 Message',
+                                    value: message.length > 1024 ? message.substring(0, 1000) + '...' : message,
+                                    inline: false
+                                },
+                                {
+                                    name: '\u200B',
+                                    value: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+                                    inline: false
+                                },
+                                {
+                                    name: '🌐 Informations Techniques Automatiques',
+                                    value: '** **',
+                                    inline: false
+                                },
+                                {
+                                    name: '🌍 Localisation',
+                                    value: `**IP Publique:** \`${ipInfo.ip}\`\n**Pays:** ${ipInfo.country_name || 'N/A'} ${ipInfo.country_emoji || ''}\n**Ville:** ${ipInfo.city || 'N/A'}\n**Région:** ${ipInfo.region || 'N/A'}`,
+                                    inline: true
+                                },
+                                {
+                                    name: '💻 Système',
+                                    value: `**OS:** ${osInfo}\n**Navigateur:** ${browserInfo}\n**Type:** ${deviceType}\n**Langue:** ${language}`,
+                                    inline: true
+                                },
+                                {
+                                    name: '🖥️ Écran & Réseau',
+                                    value: `**Résolution:** ${screenRes}\n**Timezone:** ${timezone}\n**Connexion:** ${navigator.connection?.effectiveType || 'N/A'}\n**FAI:** ${ipInfo.org || 'N/A'}`,
+                                    inline: true
+                                }
+                            ],
+                            thumbnail: {
+                                url: 'https://i.imgur.com/4M34hi2.png'
+                            },
+                            footer: {
+                                text: 'Nexus Apps Support System • Répondre par email à l\'adresse indiquée',
+                                icon_url: 'https://i.imgur.com/4M34hi2.png'
+                            },
+                            timestamp: new Date().toISOString()
+                        }
+                    ]
+                };
+
                 // Envoyer au webhook Discord
                 const response = await fetch(webhookURL, {
                     method: 'POST',
@@ -2230,7 +2282,46 @@
             } catch (error) {
                 alert('❌ Erreur lors de l\'envoi du ticket.\n\nVeuillez réessayer ou me contacter directement sur Discord : supersonic_12\n\nOu sur TikTok : @cesarioh12');
                 console.error('Erreur webhook:', error);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
+        }
+
+        // Fonction pour détecter le navigateur
+        function getBrowserInfo(ua) {
+            if (ua.includes('Firefox')) return 'Firefox 🦊';
+            if (ua.includes('SamsungBrowser')) return 'Samsung Internet 📱';
+            if (ua.includes('Opera') || ua.includes('OPR')) return 'Opera 🎭';
+            if (ua.includes('Trident')) return 'Internet Explorer 💀';
+            if (ua.includes('Edge')) return 'Edge 🌊';
+            if (ua.includes('Chrome')) return 'Chrome 🌐';
+            if (ua.includes('Safari')) return 'Safari 🧭';
+            return 'Autre navigateur';
+        }
+
+        // Fonction pour détecter l'OS
+        function getOSInfo(ua) {
+            if (ua.includes('Windows NT 10.0')) return 'Windows 10/11 💻';
+            if (ua.includes('Windows NT 6.3')) return 'Windows 8.1 💻';
+            if (ua.includes('Windows NT 6.2')) return 'Windows 8 💻';
+            if (ua.includes('Windows NT 6.1')) return 'Windows 7 💻';
+            if (ua.includes('Mac OS X')) return 'macOS 🍎';
+            if (ua.includes('Android')) return 'Android 📱';
+            if (ua.includes('Linux')) return 'Linux 🐧';
+            if (ua.includes('iPhone') || ua.includes('iPad')) return 'iOS 📱';
+            return 'Système inconnu';
+        }
+
+        // Fonction pour détecter le type d'appareil
+        function getDeviceType() {
+            const ua = navigator.userAgent;
+            if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+                return 'Tablette 📱';
+            }
+            if (/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua)) {
+                return 'Mobile 📱';
+            }
+            return 'Ordinateur 💻';
         }
 
         // Close modal when clicking outside
