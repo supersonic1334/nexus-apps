@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Nexus Apps - Applications gratuites d'optimisation PC, gaming et sécurité">
-    <title>NEXUS APPS - Optimisation PC & Gaming</title>
+    <title>NEXUS APPS - Optimisation PC & Gaming Ultimate</title>
     <style>
         * {
             margin: 0;
@@ -24,6 +24,7 @@
             overflow-x: hidden;
         }
 
+        /* Animated Particles Background */
         .background {
             position: fixed;
             top: 0;
@@ -42,177 +43,288 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(at 20% 30%, rgba(0, 255, 157, 0.08) 0px, transparent 50%),
-                radial-gradient(at 80% 70%, rgba(0, 174, 255, 0.08) 0px, transparent 50%),
-                radial-gradient(at 50% 50%, rgba(138, 43, 226, 0.05) 0px, transparent 50%);
-            animation: backgroundPulse 15s ease-in-out infinite;
+                radial-gradient(at 20% 30%, rgba(0, 255, 157, 0.12) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(0, 174, 255, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(138, 43, 226, 0.08) 0px, transparent 50%);
+            animation: backgroundPulse 12s ease-in-out infinite;
         }
 
         @keyframes backgroundPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
 
+        /* Particles */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        /* Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 255, 157, 0.2);
-            padding: 1rem 5%;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0, 255, 157, 0.3);
+            padding: 1.2rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         header.scrolled {
-            padding: 0.7rem 5%;
-            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.1);
+            padding: 0.8rem 5%;
+            box-shadow: 0 5px 30px rgba(0, 255, 157, 0.15);
+            background: rgba(13, 13, 13, 0.98);
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 100%);
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 50%, #8a2be2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-shadow: 0 0 30px rgba(0, 255, 157, 0.3);
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
         }
 
         nav {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         nav a {
             color: #ffffff;
             text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: #00ff9d;
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, #00ff9d, #00aeff);
+            transition: width 0.4s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
         }
 
         nav a:hover {
             color: #00ff9d;
+            text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
         }
 
         nav a:hover::after {
             width: 100%;
         }
 
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: #00ff9d;
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
         .hero {
-            min-height: 70vh;
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6rem 5% 3rem;
+            padding: 8rem 5% 4rem;
             text-align: center;
+            position: relative;
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 1000px;
+            z-index: 10;
         }
 
         .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 50%, #8a2be2 100%);
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 30%, #8a2be2 60%, #ff00ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             line-height: 1.2;
-            animation: titleGlow 3s ease-in-out infinite;
+            animation: titleAnimation 4s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(0, 255, 157, 0.3);
         }
 
-        @keyframes titleGlow {
-            0%, 100% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
+        @keyframes titleAnimation {
+            0%, 100% { 
+                filter: brightness(1) hue-rotate(0deg); 
+                transform: scale(1);
+            }
+            50% { 
+                filter: brightness(1.3) hue-rotate(10deg); 
+                transform: scale(1.02);
+            }
         }
 
         .hero p {
-            font-size: clamp(1rem, 2vw, 1.3rem);
-            color: #b0b0b0;
-            margin-bottom: 2.5rem;
-            line-height: 1.8;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: #c0c0c0;
+            margin-bottom: 3rem;
+            line-height: 1.9;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .cta-btn {
             display: inline-block;
-            padding: 1rem 2.5rem;
+            padding: 1.3rem 3rem;
             background: linear-gradient(135deg, #00ff9d 0%, #00aeff 100%);
             color: #0d0d0d;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
+            font-weight: 800;
+            font-size: 1.2rem;
             border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.3);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(0, 255, 157, 0.4);
             cursor: pointer;
             border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-btn:hover::before {
+            left: 100%;
         }
 
         .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.5);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 50px rgba(0, 255, 157, 0.6);
+        }
+
+        .cta-btn.secondary {
+            background: rgba(26, 26, 46, 0.8);
+            color: #00ff9d;
+            border: 2px solid #00ff9d;
+        }
+
+        .cta-btn.secondary:hover {
+            background: #00ff9d;
+            color: #0d0d0d;
         }
 
         section {
-            padding: 5rem 5%;
+            padding: 6rem 5%;
+            position: relative;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 100%);
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #00ff9d 0%, #00aeff 50%, #8a2be2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            font-weight: 700;
+            font-weight: 800;
+            position: relative;
+            animation: titlePulse 3s ease-in-out infinite;
         }
 
-        /* Stats */
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Stats Section */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .stat-box {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 15px;
-            padding: 2rem 1rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
             text-align: center;
-            transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease forwards;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease forwards;
             opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 157, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .stat-box:hover::before {
+            transform: rotate(45deg) translate(50%, 50%);
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -222,26 +334,30 @@
 
         .stat-box:nth-child(1) { animation-delay: 0.1s; }
         .stat-box:nth-child(2) { animation-delay: 0.2s; }
+        .stat-box:nth-child(3) { animation-delay: 0.3s; }
+        .stat-box:nth-child(4) { animation-delay: 0.4s; }
 
         .stat-box:hover {
-            border-color: rgba(0, 255, 157, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.7);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.3);
         }
 
         .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size: 3rem;
+            font-weight: 800;
             background: linear-gradient(135deg, #00ff9d, #00aeff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            color: #b0b0b0;
-            font-size: 0.9rem;
+            color: #c0c0c0;
+            font-size: 1.1rem;
             margin-top: 0.5rem;
+            font-weight: 600;
         }
 
         /* Apps Section */
@@ -251,22 +367,28 @@
 
         #applications.visible {
             display: block;
+            animation: sectionFadeIn 0.6s ease;
+        }
+
+        @keyframes sectionFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3.5rem;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
         .app-card {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.4s ease;
+            background: rgba(26, 26, 46, 0.7);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 25px;
+            padding: 3rem;
+            transition: all 0.5s ease;
             position: relative;
             overflow: hidden;
         }
@@ -278,9 +400,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, transparent 0%, rgba(0, 255, 157, 0.05) 100%);
+            background: linear-gradient(135deg, transparent 0%, rgba(0, 255, 157, 0.08) 100%);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.5s ease;
         }
 
         .app-card:hover::before {
@@ -288,109 +410,146 @@
         }
 
         .app-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 255, 157, 0.5);
-            box-shadow: 0 20px 50px rgba(0, 255, 157, 0.2);
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(0, 255, 157, 0.7);
+            box-shadow: 0 25px 60px rgba(0, 255, 157, 0.3);
         }
 
         .app-card.opti {
-            border-color: rgba(0, 255, 157, 0.3);
+            border-color: rgba(0, 255, 157, 0.4);
         }
 
         .app-card.opti:hover {
-            border-color: rgba(0, 255, 157, 0.6);
-            box-shadow: 0 20px 50px rgba(0, 255, 157, 0.3);
+            border-color: rgba(0, 255, 157, 0.8);
+            box-shadow: 0 25px 60px rgba(0, 255, 157, 0.4);
         }
 
         .app-card.shield {
-            border-color: rgba(255, 68, 68, 0.3);
+            border-color: rgba(255, 68, 68, 0.4);
         }
 
         .app-card.shield:hover {
-            border-color: rgba(255, 68, 68, 0.6);
-            box-shadow: 0 20px 50px rgba(255, 68, 68, 0.3);
+            border-color: rgba(255, 68, 68, 0.8);
+            box-shadow: 0 25px 60px rgba(255, 68, 68, 0.4);
+        }
+
+        .app-card.ultra {
+            border-color: rgba(138, 43, 226, 0.4);
+        }
+
+        .app-card.ultra:hover {
+            border-color: rgba(138, 43, 226, 0.8);
+            box-shadow: 0 25px 60px rgba(138, 43, 226, 0.4);
         }
 
         .app-badge {
             position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 0.5rem 1.2rem;
-            border-radius: 25px;
-            font-size: 0.85rem;
-            font-weight: 700;
+            top: 25px;
+            right: 25px;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 800;
             text-transform: uppercase;
             z-index: 1;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .app-badge.new {
             background: linear-gradient(135deg, #00ff9d, #00aeff);
             color: #0d0d0d;
+            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.5);
         }
 
         .app-badge.security {
             background: linear-gradient(135deg, #ff4444, #ff8800);
             color: #ffffff;
+            box-shadow: 0 5px 20px rgba(255, 68, 68, 0.5);
+        }
+
+        .app-badge.ultimate {
+            background: linear-gradient(135deg, #8a2be2, #ff00ff);
+            color: #ffffff;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.5);
         }
 
         .app-icon {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             background: linear-gradient(135deg, #00ff9d, #00aeff);
-            border-radius: 18px;
+            border-radius: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0, 255, 157, 0.3);
-            transition: all 0.3s ease;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 15px 35px rgba(0, 255, 157, 0.4);
+            transition: all 0.4s ease;
         }
 
         .app-card.shield .app-icon {
             background: linear-gradient(135deg, #ff4444, #ff8800);
-            box-shadow: 0 10px 25px rgba(255, 68, 68, 0.3);
+            box-shadow: 0 15px 35px rgba(255, 68, 68, 0.4);
+        }
+
+        .app-card.ultra .app-icon {
+            background: linear-gradient(135deg, #8a2be2, #ff00ff);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
         }
 
         .app-card:hover .app-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.15) rotate(10deg);
         }
 
         .app-card h3 {
-            font-size: 2rem;
+            font-size: 2.3rem;
             color: #00ff9d;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
         }
 
         .app-card.shield h3 {
             color: #ff4444;
         }
 
+        .app-card.ultra h3 {
+            color: #8a2be2;
+        }
+
         .app-card p {
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.05rem;
+            color: #c0c0c0;
+            margin-bottom: 2rem;
+            line-height: 1.9;
+            font-size: 1.1rem;
         }
 
         .app-features {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border-left: 3px solid #00ff9d;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            border-left: 4px solid #00ff9d;
         }
 
         .app-card.shield .app-features {
             border-left-color: #ff4444;
         }
 
+        .app-card.ultra .app-features {
+            border-left-color: #8a2be2;
+        }
+
         .app-features li {
-            color: #b0b0b0;
-            margin: 0.5rem 0;
-            padding-left: 1.5rem;
+            color: #c0c0c0;
+            margin: 0.8rem 0;
+            padding-left: 2rem;
             position: relative;
+            font-size: 1.05rem;
         }
 
         .app-features li::before {
@@ -399,61 +558,76 @@
             left: 0;
             color: #00ff9d;
             font-weight: bold;
+            font-size: 1.3rem;
         }
 
         .app-card.shield .app-features li::before {
             color: #ff4444;
         }
 
+        .app-card.ultra .app-features li::before {
+            color: #8a2be2;
+        }
+
         .app-stats {
             display: flex;
             gap: 1.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
         .stat {
             flex: 1;
-            min-width: 100px;
+            min-width: 110px;
         }
 
         .stat-label-small {
-            font-size: 0.85rem;
-            color: #808080;
+            font-size: 0.9rem;
+            color: #909090;
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
         }
 
         .stat-value {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #00aeff;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .app-card.shield .stat-value {
             color: #ff8800;
         }
 
+        .app-card.ultra .stat-value {
+            color: #8a2be2;
+        }
+
         .download-btn {
             display: block;
             width: 100%;
-            padding: 1.2rem;
+            padding: 1.4rem;
             background: linear-gradient(135deg, #00ff9d, #00aeff);
             color: #0d0d0d;
             text-align: center;
             text-decoration: none;
-            font-weight: 700;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            font-weight: 800;
+            border-radius: 15px;
+            transition: all 0.4s ease;
             border: none;
             cursor: pointer;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             position: relative;
             overflow: hidden;
         }
 
         .app-card.shield .download-btn {
             background: linear-gradient(135deg, #ff4444, #ff8800);
+            color: #ffffff;
+        }
+
+        .app-card.ultra .download-btn {
+            background: linear-gradient(135deg, #8a2be2, #ff00ff);
             color: #ffffff;
         }
 
@@ -465,171 +639,202 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
+            transition: width 0.7s, height 0.7s;
         }
 
         .download-btn:hover::before {
-            width: 300px;
-            height: 300px;
+            width: 350px;
+            height: 350px;
         }
 
         .download-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.5);
         }
 
         .app-card.shield .download-btn:hover {
-            box-shadow: 0 10px 30px rgba(255, 68, 68, 0.4);
+            box-shadow: 0 15px 40px rgba(255, 68, 68, 0.5);
         }
 
-        /* Features */
+        .app-card.ultra .download-btn:hover {
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.5);
+        }
+
+        /* Features Grid */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .feature-card {
-            background: rgba(26, 26, 46, 0.3);
-            border: 1px solid rgba(0, 255, 157, 0.15);
-            border-radius: 15px;
-            padding: 2.5rem;
+            background: rgba(26, 26, 46, 0.5);
+            border: 2px solid rgba(0, 255, 157, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 157, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
         }
 
         .feature-card:hover {
-            border-color: rgba(0, 255, 157, 0.4);
-            transform: translateY(-5px);
-            background: rgba(26, 26, 46, 0.5);
+            border-color: rgba(0, 255, 157, 0.5);
+            transform: translateY(-8px);
+            background: rgba(26, 26, 46, 0.7);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.2);
         }
 
         .feature-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             display: inline-block;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
         }
 
         .feature-card:hover .feature-icon {
-            transform: scale(1.2);
+            transform: scale(1.3) rotate(10deg);
         }
 
         .feature-card h4 {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: #00aeff;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
         }
 
         .feature-card p {
-            color: #b0b0b0;
-            line-height: 1.8;
+            color: #c0c0c0;
+            line-height: 1.9;
+            font-size: 1.05rem;
         }
 
         /* Support Section */
         .support-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .support-intro {
             text-align: center;
-            color: #b0b0b0;
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            line-height: 1.9;
-            font-size: 1.1rem;
+            color: #c0c0c0;
+            max-width: 900px;
+            margin: 0 auto 4rem;
+            line-height: 2;
+            font-size: 1.2rem;
         }
 
         .support-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
             margin-bottom: 3rem;
         }
 
         .support-card {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 15px;
-            padding: 2.5rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .support-card:hover {
-            border-color: rgba(0, 255, 157, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.2);
+            border-color: rgba(0, 255, 157, 0.6);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.3);
         }
 
         .support-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
         }
 
         .support-card h4 {
             color: #00ff9d;
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            font-weight: 700;
         }
 
         .support-card p {
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
+            color: #c0c0c0;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
         }
 
         .support-link {
             display: inline-block;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
             background: linear-gradient(135deg, #00ff9d, #00aeff);
             color: #0d0d0d;
             text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            font-size: 1.05rem;
         }
 
         .support-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.5);
         }
 
-        /* Comparison */
+        /* Comparison Grid */
         .comparison-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1100px;
             margin: 0 auto;
         }
 
         .comparison-card {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 15px;
-            padding: 2.5rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
         }
 
         .comparison-card.before {
-            border-color: rgba(255, 68, 68, 0.3);
+            border-color: rgba(255, 68, 68, 0.4);
         }
 
         .comparison-card.after {
-            border-color: rgba(0, 255, 157, 0.5);
+            border-color: rgba(0, 255, 157, 0.6);
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
         .comparison-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
             text-align: center;
         }
 
@@ -644,9 +849,9 @@
         .comparison-item {
             display: flex;
             justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 1.05rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 1.1rem;
         }
 
         .comparison-item:last-child {
@@ -656,82 +861,83 @@
         /* Testimonials */
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .testimonial-card {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 15px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
         }
 
         .testimonial-card:hover {
-            border-color: rgba(0, 255, 157, 0.4);
-            transform: translateY(-5px);
+            border-color: rgba(0, 255, 157, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.2);
         }
 
         .testimonial-text {
-            color: #b0b0b0;
+            color: #c0c0c0;
             font-style: italic;
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            line-height: 1.9;
+            font-size: 1.1rem;
         }
 
         .testimonial-author {
             color: #00ff9d;
-            font-weight: 600;
-            font-size: 1.1rem;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
 
         .testimonial-role {
-            color: #808080;
-            font-size: 0.95rem;
+            color: #909090;
+            font-size: 1rem;
         }
 
         /* FAQ */
         .faq-container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .faq-item {
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 12px;
-            margin-bottom: 1.2rem;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
         }
 
         .faq-item:hover {
-            border-color: rgba(0, 255, 157, 0.4);
+            border-color: rgba(0, 255, 157, 0.5);
         }
 
         .faq-question {
-            padding: 1.8rem;
+            padding: 2rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            font-weight: 700;
             color: #00ff9d;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
         }
 
         .faq-question:hover {
-            background: rgba(0, 255, 157, 0.05);
+            background: rgba(0, 255, 157, 0.08);
         }
 
         .faq-arrow {
-            transition: transform 0.3s ease;
-            font-size: 1.2rem;
+            transition: transform 0.4s ease;
+            font-size: 1.4rem;
         }
 
         .faq-item.active .faq-arrow {
@@ -739,143 +945,195 @@
         }
 
         .faq-answer {
-            padding: 0 1.8rem 1.8rem;
-            color: #b0b0b0;
-            line-height: 1.8;
+            padding: 0 2rem 2rem;
+            color: #c0c0c0;
+            line-height: 1.9;
             display: none;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
         .faq-item.active .faq-answer {
             display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Newsletter */
         .newsletter-box {
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
-            background: rgba(26, 26, 46, 0.5);
-            border: 1px solid rgba(0, 255, 157, 0.2);
-            border-radius: 20px;
-            padding: 3.5rem;
+            background: rgba(26, 26, 46, 0.7);
+            border: 2px solid rgba(0, 255, 157, 0.3);
+            border-radius: 25px;
+            padding: 4rem;
             text-align: center;
         }
 
         .newsletter-box h3 {
             color: #00ff9d;
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            font-size: 2rem;
+            font-weight: 800;
         }
 
         .newsletter-box p {
-            color: #b0b0b0;
-            margin-bottom: 2.5rem;
-            font-size: 1.1rem;
+            color: #c0c0c0;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
         }
 
         .newsletter-form {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .newsletter-form input {
             flex: 1;
-            padding: 1.2rem;
-            border: 1px solid rgba(0, 255, 157, 0.3);
-            background: rgba(13, 13, 13, 0.5);
+            padding: 1.4rem;
+            border: 2px solid rgba(0, 255, 157, 0.4);
+            background: rgba(13, 13, 13, 0.6);
             color: #ffffff;
-            border-radius: 10px;
-            font-size: 1.05rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         .newsletter-form input:focus {
             outline: none;
-            border-color: rgba(0, 255, 157, 0.6);
-            background: rgba(13, 13, 13, 0.7);
+            border-color: rgba(0, 255, 157, 0.7);
+            background: rgba(13, 13, 13, 0.8);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.3);
         }
 
         .newsletter-form button {
-            padding: 1.2rem 2.5rem;
+            padding: 1.4rem 3rem;
             background: linear-gradient(135deg, #00ff9d, #00aeff);
             color: #0d0d0d;
             border: none;
-            border-radius: 10px;
-            font-weight: 700;
+            border-radius: 12px;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.05rem;
+            transition: all 0.4s ease;
+            font-size: 1.1rem;
         }
 
         .newsletter-form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(0, 255, 157, 0.5);
         }
 
         /* Footer */
         footer {
-            background: rgba(13, 13, 13, 0.95);
-            border-top: 1px solid rgba(0, 255, 157, 0.2);
-            padding: 3.5rem 5%;
+            background: rgba(13, 13, 13, 0.98);
+            border-top: 2px solid rgba(0, 255, 157, 0.3);
+            padding: 4rem 5%;
             text-align: center;
         }
 
         .footer-content p {
-            color: #808080;
+            color: #909090;
             margin-bottom: 1.5rem;
-            font-size: 1.05rem;
+            font-size: 1.1rem;
         }
 
         .social-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 2.5rem;
+            margin-top: 2.5rem;
             flex-wrap: wrap;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
             color: #00ff9d;
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            padding: 0.8rem 1.8rem;
-            border: 1px solid rgba(0, 255, 157, 0.3);
-            border-radius: 12px;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            padding: 1rem 2rem;
+            border: 2px solid rgba(0, 255, 157, 0.4);
+            border-radius: 15px;
         }
 
         .social-links a:hover {
             color: #00aeff;
-            transform: scale(1.05);
+            transform: scale(1.1);
             border-color: #00aeff;
-            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 255, 157, 0.3);
         }
 
         .social-links svg {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
         }
 
+        /* Scroll to Top Button */
+        #scrollTop {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00ff9d, #00aeff);
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            z-index: 999;
+            box-shadow: 0 8px 25px rgba(0, 255, 157, 0.4);
+        }
+
+        #scrollTop:hover {
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 255, 157, 0.6);
+        }
+
+        #scrollTop.visible {
+            display: flex;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero {
-                min-height: 60vh;
+                min-height: 70vh;
+                padding: 6rem 5% 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
             }
 
             .newsletter-form {
                 flex-direction: column;
             }
 
-            nav {
-                gap: 1rem;
-                font-size: 0.85rem;
+            .apps-grid {
+                grid-template-columns: 1fr;
             }
 
             .comparison-grid,
-            .testimonials-grid,
-            .apps-grid {
+            .testimonials-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -883,42 +1141,58 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            section {
+                padding: 4rem 5%;
+            }
         }
 
-        /* Scroll to top button */
-        #scrollTop {
+        /* Loading Animation */
+        .loading-screen {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #00ff9d, #00aeff);
-            border-radius: 50%;
-            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d0d0d;
+            display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 999;
-            box-shadow: 0 5px 20px rgba(0, 255, 157, 0.3);
+            z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
-        #scrollTop:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.5);
+        .loading-screen.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
 
-        #scrollTop.visible {
-            display: flex;
+        .loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(0, 255, 157, 0.2);
+            border-top-color: #00ff9d;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+    </div>
+
     <div class="background"></div>
+    <canvas id="particles-canvas"></canvas>
 
     <header id="header">
         <div class="logo">NEXUS APPS</div>
-        <nav>
+        <nav id="mainNav">
             <a href="#accueil">Accueil</a>
             <a href="#" onclick="showApps(); return false;">Applications</a>
             <a href="#fonctionnalites">Fonctionnalités</a>
@@ -926,31 +1200,47 @@
             <a href="#support">Support</a>
             <a href="#communaute">Communauté</a>
         </nav>
+        <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </header>
 
     <section class="hero" id="accueil">
         <div class="hero-content">
-            <h1>LIBÉREZ LA PUISSANCE DE VOTRE PC</h1>
-            <p>Des outils d'optimisation et de sécurité gratuits et puissants pour booster vos performances gaming, sécuriser votre système et accélérer Windows comme jamais</p>
-            <button class="cta-btn" onclick="showApps()">DÉCOUVRIR LES APPS</button>
+            <h1>LIBÉREZ LA PUISSANCE TOTALE DE VOTRE PC</h1>
+            <p>Des outils d'optimisation et de sécurité ultra-puissants et 100% gratuits pour maximiser vos performances gaming, sécuriser votre système et transformer votre expérience Windows</p>
+            <div class="hero-buttons">
+                <button class="cta-btn" onclick="showApps()">🚀 DÉCOUVRIR LES APPS</button>
+                <a href="#fonctionnalites" class="cta-btn secondary">✨ VOIR LES FONCTIONNALITÉS</a>
+            </div>
         </div>
     </section>
 
-    <section style="padding: 3rem 5%;">
+    <section style="padding: 4rem 5%;">
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Gratuit</div>
+                <div class="stat-label">Gratuit à Vie</div>
             </div>
             <div class="stat-box">
                 <div class="stat-number">24/7</div>
-                <div class="stat-label">Support</div>
+                <div class="stat-label">Support Actif</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Apps Puissantes</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">+500%</div>
+                <div class="stat-label">Boost Performances</div>
             </div>
         </div>
     </section>
 
     <section id="applications">
-        <h2 class="section-title">NOS APPLICATIONS</h2>
+        <h2 class="section-title">🎯 NOS APPLICATIONS ULTRA-PERFORMANTES</h2>
         <div class="apps-grid">
             
             <!-- NEXUS OPTI -->
@@ -958,13 +1248,14 @@
                 <span class="app-badge new">⚡ NOUVEAU v2.0</span>
                 <div class="app-icon">⚡</div>
                 <h3>Nexus Opti</h3>
-                <p>L'optimiseur PC ultime pour gamers et professionnels. Boostez vos FPS, accélérez Windows, libérez de la RAM et maximisez les performances de votre machine en quelques clics.</p>
+                <p>L'optimiseur PC ultime conçu pour les gamers exigeants et professionnels. Boostez vos FPS de façon spectaculaire, accélérez Windows, libérez de la RAM et maximisez chaque composant de votre machine en quelques clics.</p>
                 
                 <ul class="app-features">
-                    <li>22 options d'optimisation avancées</li>
-                    <li>Nettoyage système complet</li>
-                    <li>Optimisation GPU & Gaming</li>
-                    <li>Boost réseau et RAM</li>
+                    <li>22 options d'optimisation avancées et professionnelles</li>
+                    <li>Nettoyage système ultra-complet et intelligent</li>
+                    <li>Optimisation GPU & Gaming haute performance</li>
+                    <li>Boost réseau pour latence minimale</li>
+                    <li>Gestion RAM et CPU optimisée</li>
                 </ul>
 
                 <div class="app-stats">
@@ -992,14 +1283,15 @@
                 <span class="app-badge security">🛡️ NOUVEAU v2.0</span>
                 <div class="app-icon">🛡️</div>
                 <h3>Nexus Shield</h3>
-                <p>Protection et sécurité maximale pour votre PC. Scans antivirus complets, réparation système, protection pare-feu et confidentialité renforcée. Votre bouclier numérique tout-en-un.</p>
+                <p>Protection et sécurité maximale pour votre PC Windows. Scans antivirus ultra-rapides, réparation système avancée, protection pare-feu renforcée et confidentialité totale. Votre bouclier numérique tout-en-un contre toutes les menaces.</p>
                 
                 <ul class="app-features">
-                    <li>19 options de sécurité avancées</li>
-                    <li>Scans antivirus rapides/complets</li>
-                    <li>Réparation fichiers système (SFC/DISM)</li>
-                    <li>Protection confidentialité</li>
-                    <li>Sécurité réseau renforcée</li>
+                    <li>19 options de sécurité avancées professionnelles</li>
+                    <li>Scans antivirus rapides et complets ultra-efficaces</li>
+                    <li>Réparation fichiers système (SFC/DISM/CHKDSK)</li>
+                    <li>Protection confidentialité et données personnelles</li>
+                    <li>Sécurité réseau et pare-feu renforcés</li>
+                    <li>Détection et suppression de malwares avancée</li>
                 </ul>
 
                 <div class="app-stats">
@@ -1022,54 +1314,91 @@
                 </a>
             </div>
 
+            <!-- PC OPTIMIZER ULTRA V5 ULTIMATE -->
+            <div class="app-card ultra">
+                <span class="app-badge ultimate">💎 ULTIMATE v5.0</span>
+                <div class="app-icon">💎</div>
+                <h3>PC Optimizer ULTRA</h3>
+                <p>La VERSION ULTIME et la plus complète de nos optimiseurs ! Combine TOUTES les fonctionnalités d'optimisation et de sécurité dans une seule application surpuissante. L'outil absolu pour transformer votre PC en machine de guerre gaming et productivité.</p>
+                
+                <ul class="app-features">
+                    <li>Plus de 50 optimisations ultra-avancées combinées</li>
+                    <li>Interface ULTIMATE avec contrôle total du système</li>
+                    <li>Boost FPS extrême pour gaming compétitif</li>
+                    <li>Protection + Optimisation en mode automatique</li>
+                    <li>Nettoyage profond + Réparation système avancée</li>
+                    <li>Optimisation GPU/CPU/RAM maximale</li>
+                    <li>Mode Gaming Pro avec overclocking intelligent</li>
+                </ul>
+
+                <div class="app-stats">
+                    <div class="stat">
+                        <span class="stat-label-small">Version</span>
+                        <span class="stat-value">v5.0 ULTIMATE</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label-small">Taille</span>
+                        <span class="stat-value">2.5 MB</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label-small">Système</span>
+                        <span class="stat-value">Win 10/11</span>
+                    </div>
+                </div>
+
+                <a href="https://github.com/supersonic1334/nexus-apps/raw/refs/heads/main/PC_Optimizer_ULTRA_V5_ULTIMATE.zip" class="download-btn" download>
+                   ⬇️ TÉLÉCHARGER L'ULTIMATE
+                </a>
+            </div>
+
         </div>
     </section>
 
     <section id="fonctionnalites">
-        <h2 class="section-title">POURQUOI CHOISIR NEXUS ?</h2>
+        <h2 class="section-title">✨ POURQUOI CHOISIR NEXUS ?</h2>
         <div class="features-grid">
             
             <div class="feature-card">
                 <div class="feature-icon">🆓</div>
                 <h4>100% Gratuit</h4>
-                <p>Toutes nos applications sont entièrement gratuites, sans publicités, sans achats intégrés et sans abonnement caché</p>
+                <p>Toutes nos applications sont entièrement gratuites, sans publicités intrusives, sans achats intégrés cachés et sans abonnement mensuel. Performance accessible à tous.</p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
-                <h4>Performances Max</h4>
-                <p>Optimisations avancées et techniques professionnelles pour tirer le maximum de votre matériel et booster vos FPS</p>
+                <h4>Performances Maximales</h4>
+                <p>Optimisations professionnelles de niveau expert pour extraire le maximum absolu de votre matériel et booster vos FPS de façon spectaculaire en jeu.</p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🎯</div>
-                <h4>Simple & Efficace</h4>
-                <p>Interface intuitive et épurée. Des résultats immédiats en quelques clics, même pour les débutants</p>
+                <h4>Ultra Simple</h4>
+                <p>Interface intuitive et design moderne. Des résultats immédiats et mesurables en quelques clics, accessible même aux débutants complets.</p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🔄</div>
-                <h4>Mises à Jour</h4>
-                <p>Nouvelles fonctionnalités et optimisations ajoutées régulièrement pour rester à la pointe</p>
+                <h4>Mises à Jour Régulières</h4>
+                <p>Nouvelles fonctionnalités puissantes, optimisations avancées et corrections ajoutées régulièrement pour rester à la pointe de la technologie.</p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🛡️</div>
-                <h4>100% Sûr</h4>
-                <p>Aucun malware, aucun risque. Toutes nos apps sont testées, sécurisées et open source</p>
+                <h4>100% Sécurisé</h4>
+                <p>Aucun malware, aucun spyware, aucun risque. Toutes nos applications sont rigoureusement testées, vérifiées et totalement sécurisées.</p>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">💬</div>
                 <h4>Support 24/7</h4>
-                <p>Notre communauté Discord est là pour vous aider à tout moment. Réponses rapides garanties</p>
+                <p>Notre communauté Discord active et notre équipe dévouée sont là pour vous aider à tout moment. Réponses rapides et expertes garanties.</p>
             </div>
 
         </div>
     </section>
 
     <section id="resultats">
-        <h2 class="section-title">RÉSULTATS AVANT / APRÈS</h2>
+        <h2 class="section-title">📊 RÉSULTATS AVANT / APRÈS NEXUS</h2>
         <div class="comparison-grid">
             <div class="comparison-card before">
                 <div class="comparison-title">❌ AVANT NEXUS OPTI</div>
@@ -1099,75 +1428,75 @@
                 <div class="comparison-title">✅ APRÈS NEXUS OPTI</div>
                 <div class="comparison-item">
                     <span>FPS Valorant</span>
-                    <span style="color: #00ff9d; font-weight: 700;">185 FPS</span>
+                    <span style="color: #00ff9d; font-weight: 800;">185 FPS (+54%)</span>
                 </div>
                 <div class="comparison-item">
                     <span>Temps de démarrage</span>
-                    <span style="color: #00ff9d; font-weight: 700;">20 secondes</span>
+                    <span style="color: #00ff9d; font-weight: 800;">20 secondes (-56%)</span>
                 </div>
                 <div class="comparison-item">
                     <span>Utilisation RAM</span>
-                    <span style="color: #00ff9d; font-weight: 700;">48%</span>
+                    <span style="color: #00ff9d; font-weight: 800;">48% (-44%)</span>
                 </div>
                 <div class="comparison-item">
                     <span>Espace disque libre</span>
-                    <span style="color: #00ff9d; font-weight: 700;">32 GB</span>
+                    <span style="color: #00ff9d; font-weight: 800;">32 GB (+167%)</span>
                 </div>
                 <div class="comparison-item">
                     <span>Ping moyen</span>
-                    <span style="color: #00ff9d; font-weight: 700;">22 ms</span>
+                    <span style="color: #00ff9d; font-weight: 800;">22 ms (-37%)</span>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="testimonials">
-        <h2 class="section-title">ILS NOUS FONT CONFIANCE</h2>
+        <h2 class="section-title">💬 ILS NOUS FONT CONFIANCE</h2>
         <div class="testimonials-grid">
             <div class="testimonial-card">
-                <p class="testimonial-text">"Nexus Opti a transformé mon PC ! Mes FPS ont explosé de +50% sur Valorant et mon jeu est ultra fluide. Incroyable !"</p>
+                <p class="testimonial-text">"Nexus Opti a littéralement transformé mon PC gamer ! Mes FPS ont explosé de +50% sur Valorant et Fortnite. Le jeu est devenu ultra fluide et réactif. Incroyable, je ne peux plus m'en passer !"</p>
                 <div class="testimonial-author">Alex M.</div>
-                <div class="testimonial-role">Gamer compétitif</div>
+                <div class="testimonial-role">Gamer compétitif • Valorant Radiant</div>
             </div>
             <div class="testimonial-card">
-                <p class="testimonial-text">"Nexus Shield a détecté et nettoyé des malwares que mon ancien antivirus n'avait jamais trouvés. Mon PC est enfin sécurisé !"</p>
+                <p class="testimonial-text">"Nexus Shield a détecté et éliminé des malwares que mon ancien antivirus payant n'avait jamais trouvés en 2 ans ! Mon PC est enfin totalement sécurisé. Un must-have absolu pour tous."</p>
                 <div class="testimonial-author">Sophie L.</div>
-                <div class="testimonial-role">Streamer</div>
+                <div class="testimonial-role">Streamer Twitch • 50K followers</div>
             </div>
             <div class="testimonial-card">
-                <p class="testimonial-text">"Interface ultra simple, résultats bluffants. Les deux apps sont parfaites et complémentaires. Je recommande à 100% !"</p>
+                <p class="testimonial-text">"PC Optimizer ULTRA est une révélation totale ! Interface magnifique, résultats bluffants instantanés. Les trois apps sont parfaitement complémentaires. Je recommande à 200% à tous mes abonnés !"</p>
                 <div class="testimonial-author">Thomas R.</div>
-                <div class="testimonial-role">Créateur de contenu</div>
+                <div class="testimonial-role">YouTuber Tech • 200K abonnés</div>
             </div>
         </div>
     </section>
 
     <section id="support">
-        <h2 class="section-title">SUPPORT & ASSISTANCE</h2>
+        <h2 class="section-title">🆘 SUPPORT & ASSISTANCE</h2>
         <div class="support-container">
             <p class="support-intro">
-                Besoin d'aide avec nos applications ? Notre équipe est disponible 24/7 pour répondre à toutes vos questions. Que vous ayez un problème technique, besoin de conseils d'optimisation ou simplement des suggestions, nous sommes là pour vous aider !
+                Besoin d'aide avec nos applications ? Notre équipe passionnée et notre communauté active sont disponibles 24/7 pour répondre à toutes vos questions. Que vous ayez un problème technique, besoin de conseils d'optimisation personnalisés ou simplement des suggestions d'amélioration, nous sommes là pour vous accompagner !
             </p>
             
             <div class="support-grid">
                 <div class="support-card">
                     <div class="support-icon">💬</div>
                     <h4>Discord</h4>
-                    <p>Rejoignez notre serveur Discord pour un support instantané, des discussions avec la communauté et des mises à jour en temps réel</p>
+                    <p>Rejoignez notre serveur Discord ultra-actif pour un support instantané, des discussions passionnantes avec la communauté gaming et des mises à jour exclusives en avant-première</p>
                     <a href="https://discord.com/users/supersonic_12" class="support-link" target="_blank">Rejoindre Discord</a>
                 </div>
                 
                 <div class="support-card">
                     <div class="support-icon">📱</div>
                     <h4>TikTok</h4>
-                    <p>Suivez-nous sur TikTok pour des tutoriels vidéo, des astuces d'optimisation et les dernières nouveautés de Nexus Apps</p>
+                    <p>Suivez-nous sur TikTok pour des tutoriels vidéo détaillés, des astuces d'optimisation secrètes et toutes les dernières nouveautés de Nexus Apps en exclusivité</p>
                     <a href="https://www.tiktok.com/@cesarioh12_76" class="support-link" target="_blank">Suivre @cesarioh12_76</a>
                 </div>
                 
                 <div class="support-card">
                     <div class="support-icon">📧</div>
                     <h4>Contact Direct</h4>
-                    <p>Pour les demandes spécifiques ou les partenariats, contactez-nous directement via nos réseaux sociaux ou Discord</p>
+                    <p>Pour les demandes spécifiques, suggestions d'amélioration ou propositions de partenariats, contactez-nous directement via nos réseaux sociaux ou serveur Discord</p>
                     <a href="#communaute" class="support-link">Nous contacter</a>
                 </div>
             </div>
@@ -1175,49 +1504,49 @@
     </section>
 
     <section id="communaute">
-        <h2 class="section-title">REJOIGNEZ LA COMMUNAUTÉ</h2>
-        <div style="text-align: center; color: #b0b0b0; max-width: 800px; margin: 0 auto 3rem; line-height: 1.9; font-size: 1.1rem;">
-            <p>Rejoignez notre communauté active de gamers et passionnés de tech ! Partagez vos configurations, obtenez de l'aide en temps réel et découvrez les dernières astuces d'optimisation. Nos experts et modérateurs sont disponibles 24/7 pour vous accompagner.</p>
+        <h2 class="section-title">🎮 REJOIGNEZ LA COMMUNAUTÉ NEXUS</h2>
+        <div style="text-align: center; color: #c0c0c0; max-width: 900px; margin: 0 auto 3rem; line-height: 2; font-size: 1.2rem;">
+            <p>Rejoignez notre communauté passionnée et ultra-active de gamers exigeants et passionnés de tech ! Partagez vos configurations gaming, obtenez de l'aide experte en temps réel et découvrez les dernières astuces d'optimisation secrètes. Nos experts techniques et modérateurs dévoués sont disponibles 24/7 pour vous accompagner dans votre quête de performances maximales.</p>
         </div>
     </section>
 
     <section id="faq">
-        <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
+        <h2 class="section-title">❓ QUESTIONS FRÉQUENTES</h2>
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Est-ce vraiment gratuit ?</span>
+                    <span>Est-ce vraiment 100% gratuit ?</span>
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Oui ! Nexus Opti et Nexus Shield sont 100% gratuits, sans publicités ni achats cachés. Nous croyons que tout le monde mérite d'avoir un PC performant et sécurisé.
+                    Oui absolument ! Nexus Opti, Nexus Shield et PC Optimizer ULTRA sont 100% gratuits à vie, sans publicités invasives ni achats cachés. Nous croyons fermement que tout le monde mérite d'avoir un PC performant, rapide et sécurisé sans payer d'abonnement.
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Quelle est la différence entre Opti et Shield ?</span>
+                    <span>Quelle est la différence entre les 3 applications ?</span>
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Nexus Opti se concentre sur l'optimisation et les performances (FPS, vitesse, nettoyage). Nexus Shield se concentre sur la sécurité (antivirus, scans système, protection). Les deux sont complémentaires !
+                    Nexus Opti se concentre sur l'optimisation pure et les performances (FPS, vitesse, nettoyage). Nexus Shield se concentre sur la sécurité totale (antivirus, scans, protection). PC Optimizer ULTRA combine TOUT dans une version ultime surpuissante avec 50+ optimisations. Les trois sont parfaitement complémentaires selon vos besoins !
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Est-ce sûr pour mon PC ?</span>
+                    <span>Est-ce sûr et sans risque pour mon PC ?</span>
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Absolument ! Nos applications n'effectuent que des optimisations sûres et réversibles. Aucun risque pour votre système, vos données ou vos fichiers. Tout est testé et sécurisé.
+                    Absolument ! Nos applications n'effectuent que des optimisations sûres, testées et entièrement réversibles. Aucun risque pour votre système Windows, vos données personnelles ou vos fichiers importants. Tout est rigoureusement testé, vérifié et 100% sécurisé.
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Dois-je installer les deux applications ?</span>
+                    <span>Dois-je installer les trois applications ?</span>
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    C'est recommandé mais pas obligatoire. Nexus Opti booste les performances, Nexus Shield protège votre PC. Ensemble, ils offrent une protection et des performances optimales.
+                    C'est fortement recommandé mais pas obligatoire. Pour une protection ET des performances optimales maximales, nous conseillons d'installer soit les 3 apps séparément, soit uniquement PC Optimizer ULTRA qui combine tout. Vous pouvez aussi choisir selon vos besoins spécifiques : uniquement Opti pour la vitesse, ou uniquement Shield pour la sécurité.
                 </div>
             </div>
             <div class="faq-item">
@@ -1226,16 +1555,25 @@
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Windows 10 ou 11 (64-bit), 2 GB de RAM minimum. Les applications sont très légères (environ 2 MB chacune) et fonctionnent sur presque tous les PC.
+                    Windows 10 ou Windows 11 (64-bit), minimum 2 GB de RAM (4 GB recommandé). Les applications sont ultra-légères (environ 2 MB chacune) et fonctionnent parfaitement sur presque tous les PC, même les configurations modestes. Compatible Intel et AMD.
                 </div>
             </div>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
-                    <span>Comment obtenir de l'aide ?</span>
+                    <span>Comment obtenir de l'aide rapidement ?</span>
                     <span class="faq-arrow">▼</span>
                 </div>
                 <div class="faq-answer">
-                    Rejoignez notre Discord ! Notre communauté et notre équipe sont là pour vous aider 24/7. Vous pouvez aussi nous contacter sur TikTok @cesarioh12_76.
+                    Rejoignez notre serveur Discord ultra-actif ! Notre communauté passionnée et notre équipe technique sont là pour vous aider 24/7 avec des réponses rapides et expertes. Vous pouvez aussi nous contacter sur TikTok @cesarioh12_76 pour des questions générales.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Les apps fonctionnent-elles sur laptop/portable ?</span>
+                    <span class="faq-arrow">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Oui parfaitement ! Nos applications sont optimisées pour fonctionner aussi bien sur PC de bureau que sur laptops gaming et portables classiques. Elles sont même particulièrement utiles sur laptop pour améliorer la gestion de la batterie et réduire la surchauffe.
                 </div>
             </div>
         </div>
@@ -1243,11 +1581,11 @@
 
     <section id="newsletter">
         <div class="newsletter-box">
-            <h3>📧 Restez Informé</h3>
-            <p>Recevez les dernières mises à jour, nouvelles applications et astuces d'optimisation directement dans votre boîte mail</p>
+            <h3>📧 Restez Informé des Nouveautés</h3>
+            <p>Recevez en exclusivité les dernières mises à jour majeures, nouvelles applications révolutionnaires et astuces d'optimisation secrètes directement dans votre boîte mail</p>
             <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-                <input type="email" placeholder="Votre email" required>
-                <button type="submit">S'inscrire</button>
+                <input type="email" placeholder="Votre adresse email" required>
+                <button type="submit">S'inscrire Gratuitement</button>
             </form>
         </div>
     </section>
@@ -1255,7 +1593,7 @@
     <footer id="contact">
         <div class="footer-content">
             <p>&copy; 2026 Nexus Apps - Tous droits réservés</p>
-            <p>Fait avec passion pour la communauté gaming et tech 🎮💻</p>
+            <p>Créé avec passion pour la communauté gaming et tech mondiale 🎮💻⚡</p>
             <div class="social-links">
                 <a href="https://www.tiktok.com/@cesarioh12_76" target="_blank" title="TikTok">
                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1273,34 +1611,132 @@
         </div>
     </footer>
 
-    <!-- Scroll to top button -->
+    <!-- Scroll to Top Button -->
     <div id="scrollTop" onclick="scrollToTop()">
-        <span style="color: #0d0d0d; font-size: 1.5rem;">↑</span>
+        <span style="color: #0d0d0d; font-size: 2rem; font-weight: bold;">↑</span>
     </div>
 
     <script>
-        // Show apps section
+        // Loading Screen
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 800);
+        });
+
+        // Particles Canvas Animation
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 80;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.2;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                else if (this.x < 0) this.x = canvas.width;
+
+                if (this.y > canvas.height) this.y = 0;
+                else if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 255, 157, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Draw connections
+            particles.forEach((a, i) => {
+                particles.slice(i + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 120) {
+                        ctx.strokeStyle = `rgba(0, 255, 157, ${0.15 * (1 - distance / 120)})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Show apps section with smooth animation
         function showApps() {
             const appsSection = document.getElementById('applications');
             appsSection.classList.add('visible');
             appsSection.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Toggle FAQ
+        // Toggle FAQ with smooth animation
         function toggleFAQ(element) {
             const faqItem = element.parentElement;
-            faqItem.classList.toggle('active');
+            const wasActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!wasActive) {
+                faqItem.classList.add('active');
+            }
         }
 
-        // Newsletter subscription
+        // Newsletter subscription with enhanced feedback
         function subscribeNewsletter(event) {
             event.preventDefault();
             const email = event.target.querySelector('input').value;
-            alert('🎉 Merci !\n\nVous êtes maintenant inscrit à notre newsletter avec l\'email :\n' + email + '\n\nVous recevrez toutes nos actualités et nouveautés !');
+            alert('🎉 Merci et Bienvenue !\n\n✅ Vous êtes maintenant inscrit à notre newsletter avec l\'email :\n📧 ' + email + '\n\n🚀 Vous recevrez toutes nos actualités exclusives, nouvelles applications et astuces d\'optimisation avancées !\n\n💎 Restez connecté pour ne rien manquer !');
             event.target.reset();
         }
 
-        // Header scroll effect
+        // Header scroll effect with enhanced animation
         window.addEventListener('scroll', function() {
             const header = document.getElementById('header');
             const scrollTop = document.getElementById('scrollTop');
@@ -1314,29 +1750,82 @@
             }
         });
 
-        // Scroll to top
+        // Smooth scroll to top
         function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ 
+                top: 0, 
+                behavior: 'smooth' 
+            });
         }
 
-        // Animate stats on scroll
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mainNav');
+            if (nav.style.display === 'flex') {
+                nav.style.display = 'none';
+            } else {
+                nav.style.display = 'flex';
+                nav.style.flexDirection = 'column';
+                nav.style.position = 'absolute';
+                nav.style.top = '100%';
+                nav.style.left = '0';
+                nav.style.right = '0';
+                nav.style.background = 'rgba(13, 13, 13, 0.98)';
+                nav.style.padding = '2rem';
+                nav.style.borderTop = '2px solid rgba(0, 255, 157, 0.3)';
+            }
+        }
+
+        // Animate elements on scroll
         const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px'
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
         };
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animationPlayState = 'running';
+                    entry.target.style.opacity = '1';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.stat-box').forEach(box => {
-            box.style.animationPlayState = 'paused';
-            observer.observe(box);
+        document.querySelectorAll('.stat-box, .feature-card, .app-card').forEach(element => {
+            observer.observe(element);
         });
+
+        // Smooth scroll for all anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-content');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / 600);
+            }
+        });
+
+        // Console easter egg
+        console.log('%c🚀 NEXUS APPS 🚀', 'color: #00ff9d; font-size: 24px; font-weight: bold;');
+        console.log('%cMerci d\'utiliser Nexus Apps ! 💚', 'color: #00aeff; font-size: 16px;');
+        console.log('%cRejoins notre Discord: discord.com/users/supersonic_12', 'color: #8a2be2; font-size: 14px;');
     </script>
 
 </body>
